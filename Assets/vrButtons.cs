@@ -12,9 +12,9 @@ public class vrButtons : MonoBehaviour
     //public TextMesh displayText;
 
     public GameObject spherePrefab;
-    static private int rows = 30;
-    static private int cols = 30;
-    private float zSphereArray = 100;
+    static private int rows = 60;
+    static private int cols = 60;
+    private float zSphereArray = 30;
     private GameObject[,] newSphere = new GameObject[rows,cols];
 
     // Use this for initialization
