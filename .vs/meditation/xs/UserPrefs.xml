@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{189854B4-7E94-78B4-B750-2A4D2A9725A0}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/vrButtons.cs">
+    <Files>
+      <File FileName="Assets/changeColor.cs" Line="31" Column="1" />
+      <File FileName="Assets/vrButtons.cs" Line="7" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
