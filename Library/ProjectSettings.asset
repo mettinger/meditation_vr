@@ -731,7 +731,7 @@ PlayerSettings:
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: ef6bbcc6-6ca7-4c03-a645-8f84ed488d64
-  projectName: meditation_vr
+  projectName: meditation
   organizationId: mettinger
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
