@@ -59,20 +59,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\AntialiasingEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\BloomAndFlaresEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\BloomEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\CameraMotionBlurEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\ColorCorrectionCurvesEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\ColorCorrectionLookupEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\DepthOfFieldDeprecatedEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\DepthOfFieldEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\EdgeDetectionEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\NoiseAndGrainEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\SunShaftsEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\TonemappingEditor.cs" />
-    <Compile Include="Assets\Editor\ImageEffects\VignetteAndChromaticAberrationEditor.cs" />
     <Compile Include="Assets\GoogleVR\Demos\Editor\DemoInputManagerEditor.cs" />
     <Compile Include="Assets\GoogleVR\Demos\Editor\PermissionsDemoBuildProcessor.cs" />
     <Compile Include="Assets\GoogleVR\Editor\Controller\GvrControllerVisualEditor.cs" />
@@ -381,10 +367,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{71CAAB35-05A9-7DF8-B43E-051BDA2BB672}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{189854B4-7E94-78B4-B750-2A4D2A9725A0}</Project>
       <Name>Assembly-CSharp</Name>

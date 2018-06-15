@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio for Mac
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meditation", "Assembly-CSharp.csproj", "{189854B4-7E94-78B4-B750-2A4D2A9725A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meditation", "Assembly-CSharp-firstpass.csproj", "{71CAAB35-05A9-7DF8-B43E-051BDA2BB672}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meditation", "Assembly-CSharp-Editor.csproj", "{3EF46F1E-856C-09AF-7D55-B9A21B2D4333}"
 EndProject
 Global
@@ -17,10 +15,6 @@ Global
 		{189854B4-7E94-78B4-B750-2A4D2A9725A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{189854B4-7E94-78B4-B750-2A4D2A9725A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{189854B4-7E94-78B4-B750-2A4D2A9725A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71CAAB35-05A9-7DF8-B43E-051BDA2BB672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71CAAB35-05A9-7DF8-B43E-051BDA2BB672}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71CAAB35-05A9-7DF8-B43E-051BDA2BB672}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71CAAB35-05A9-7DF8-B43E-051BDA2BB672}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3EF46F1E-856C-09AF-7D55-B9A21B2D4333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3EF46F1E-856C-09AF-7D55-B9A21B2D4333}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EF46F1E-856C-09AF-7D55-B9A21B2D4333}.Release|Any CPU.ActiveCfg = Release|Any CPU
