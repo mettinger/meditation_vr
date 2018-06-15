@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//using System.Collections;
+//using System.Collections.Generic;
 //using UnityEngine.UI;
 
 
@@ -12,27 +12,44 @@ public class vrButtons : MonoBehaviour
     //public TextMesh displayText;
 
     public GameObject spherePrefab;
+
+    // central array
     static private int rows = 10;
     static private int cols = 10;
-    private float zSphereArray = 30;
-    private GameObject[,] newSphere = new GameObject[rows,cols];
+    private float zSphereArray = 100;
+    private GameObject[,] arraySphere = new GameObject[rows,cols];
+
+    // peripheral circle
+    static private int numSpherePeriph = 30;
+    private float circleRadius = 10;
+    private float zCircle = 15;
+    private GameObject[] circleSphere = new GameObject[numSpherePeriph];
 
     // Use this for initialization
     void Start()
     {
-        /*
-        for (int i = 0; i < 2; i++)
-        {
-            newSphere[i] = Instantiate(spherePrefab, new Vector3(0.0f + (float)i, 1.0f, 5.0f), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
-        }*/
-
+        // MAKE CENTER ATTENTION ARRAY
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < cols; j++)
             {
-                newSphere[i,j] = Instantiate(spherePrefab, new Vector3((float)j - (((float)cols - 1.0f)/2.0f), (float)i - (((float)rows - 1.0f) / 2.0f), zSphereArray), new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
+                arraySphere[i,j] = Instantiate(spherePrefab, 
+                                               new Vector3((float)j - (((float)cols - 1.0f)/2.0f),
+                                                           (float)i - (((float)rows - 1.0f)/2.0f),
+                                                           zSphereArray), 
+                                               new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
             }
            
+        }
+
+        for (int i = 0; i < numSpherePeriph; i++)
+        {
+            
+            circleSphere[i] = Instantiate(spherePrefab, 
+                                          new Vector3(circleRadius * (float)System.Math.Cos(2*System.Math.PI*i/numSpherePeriph), 
+                                                      circleRadius * (float)System.Math.Sin(2*System.Math.PI*i/numSpherePeriph), 
+                                                      zCircle), 
+                                          new Quaternion(0.0f, 0.0f, 0.0f, 0.0f));
         }
 
        
