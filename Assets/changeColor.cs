@@ -21,7 +21,6 @@ public class changeColor : MonoBehaviour
     {
 
         Vector4 oldColor = thisRend.material.color;
-        //Color color = new Color((oldColor.x + (float) 0.01) % 1, oldColor.y, oldColor.z, oldColor.w);
         i = i + .1;
         Color color = new Color((float)Math.Sin(i), oldColor.y, oldColor.z, oldColor.w);
         thisRend.material.SetColor("_Color", color);

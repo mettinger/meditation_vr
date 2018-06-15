@@ -14,8 +14,8 @@ public class vrButtons : MonoBehaviour
     public GameObject spherePrefab;
 
     // central array
-    static private int rows = 10;
-    static private int cols = 10;
+    static private int rows = 20;
+    static private int cols = 20;
     private float zSphereArray = 100;
     private GameObject[,] arraySphere = new GameObject[rows,cols];
 
@@ -24,6 +24,14 @@ public class vrButtons : MonoBehaviour
     private float circleRadius = 10;
     private float zCircle = 15;
     private GameObject[] circleSphere = new GameObject[numSpherePeriph];
+
+    // button click counters
+    private int appClickCounter = 0;
+    private int clickClickCounter = 0;
+
+    // button status flags
+    private int clickButtonDownFlag = 0;
+    private int appButtonDownFlag = 0;
 
     // Use this for initialization
     void Start()
@@ -42,7 +50,7 @@ public class vrButtons : MonoBehaviour
            
         }
 
-        // MAKE PERIPHERAL
+        // MAKE PERIPHERAL SPHERES
         for (int i = 0; i < numSpherePeriph; i++)
         {
             
@@ -59,15 +67,38 @@ public class vrButtons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // DETECT APP BUTTON CLICK
         if (GvrControllerInput.AppButtonDown)
         {
-            print("Click App button down");
-            //displayText.text = "App button down";
+            appButtonDownFlag = 1;
         }
         if (GvrControllerInput.AppButtonUp)
         {
-            print("Click App button up");
             //displayText.text = "App button up";
+
+            if (appButtonDownFlag == 1)
+            {
+                appClickCounter += 1;
+                appButtonDownFlag = 0;
+                print("app button click counter: " + appClickCounter.ToString());
+            }
+        }
+
+        // DETECT CLICK BUTTON CLICK
+        if (GvrControllerInput.ClickButtonDown)
+        {
+            clickButtonDownFlag = 1;
+        }
+        if (GvrControllerInput.ClickButtonDown)
+        {
+            //displayText.text = "App button up";
+
+            if (clickButtonDownFlag == 1)
+            {
+                clickClickCounter += 1;
+                clickButtonDownFlag = 0;
+                print("click button click counter: " + clickClickCounter.ToString());
+            }
         }
     }
 
