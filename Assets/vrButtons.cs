@@ -42,6 +42,7 @@ public class vrButtons : MonoBehaviour
            
         }
 
+        // MAKE PERIPHERAL
         for (int i = 0; i < numSpherePeriph; i++)
         {
             
