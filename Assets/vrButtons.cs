@@ -35,32 +35,30 @@ public class vrButtons : MonoBehaviour
     private int clickButtonDownFlag = 0;
     private int appButtonDownFlag = 0;
 
-    // event variables
-    private int appRecoveryCount = 0;
+    // event parameters - modify at will!
+    private float appRecoverySecs = 2.0f; // recovery time after end of event
     private float appEventProb = .1f;
-    private int appEventDuration = 10;
+    private float appEventDurationSecs = 1.0f;
+    private float appEventDetectionWindowSecs = 2.0f; // window for detection from beginning of event
 
-    private int clickRecoveryCount = 0;
+    private float clickRecoverySecs = 2.0f; // recovery time after end of event
     private float clickEventProb = .1f;
-    private int clickEventDuration = 10;
+    private float clickEventDurationSecs = 1.0f;
+    private float clickEventDetectionWindowSecs = 2.0f; // window for detection from beginning of event
 
-    private int updateCounter = 0;
-
+    // event variables - do NOT modify
     private bool appEventReadyFlag = true;
-    private int appEventBeginCount = 0;
+    private float appEventBeginSec;
     private bool appInEventFlag = false;
 
     private bool clickEventReadyFlag = true;
-    private int clickEventBeginCount = 0;
+    private float clickEventBeginSec;
     private bool clickInEventFlag = false;
 
     private int appEventDetectCounter = 0;
     private int clickEventDetectCounter = 0;
     private int appFalsePositiveCounter = 0;
     private int clickFalsePositiveCounter = 0;
-
-    private int appEventDetectionWindow = 2;
-    private int clickEventDetectionWindow = 2;
 
     private bool appInWindowFlag = false;
     private bool clickInWindowFlag = false;
@@ -113,9 +111,6 @@ public class vrButtons : MonoBehaviour
         appButtonLogic();
         clickButtonLogic();
 
-        updateCounter += 1;
-
-
         /*
         if (Input.GetMouseButtonDown(0))
             Debug.Log("Pressed primary button.");
@@ -131,11 +126,11 @@ public class vrButtons : MonoBehaviour
 
     void doAppEvent()
     {
-        if (appEventBeginCount == updateCounter)
+        if (Mathf.Approximately(appEventBeginSec, Time.time))
         {
             arraySphere[10, 10].transform.localScale = new Vector3(0, 0, 0);
         }
-        else if (updateCounter >= appEventBeginCount + appEventDuration)
+        else if (Time.time >= appEventBeginSec + appEventDurationSecs)
         {
             appInEventFlag = false;
             arraySphere[10, 10].transform.localScale = new Vector3(1, 1, 1);
@@ -144,11 +139,11 @@ public class vrButtons : MonoBehaviour
 
     void doClickEvent()
     {
-        if (clickEventBeginCount == updateCounter)
+        if (Mathf.Approximately(clickEventBeginSec, Time.time))
         {
             circleSphere[0].transform.localScale = new Vector3(0, 0, 0);
         }
-        else if (updateCounter >= clickEventBeginCount + clickEventDuration)
+        else if (Time.time >= clickEventBeginSec + clickEventDurationSecs)
         {
             clickInEventFlag = false;
             circleSphere[0].transform.localScale = new Vector3(1, 1, 1);
@@ -161,7 +156,7 @@ public class vrButtons : MonoBehaviour
         if (appEventReadyFlag && UnityEngine.Random.Range(0.0f, 1.0f) < appEventProb)
         {
             appEventReadyFlag = false;
-            appEventBeginCount = updateCounter;
+            appEventBeginSec = Time.time;
             appInEventFlag = true;
             appInWindowFlag = true;
         }
@@ -172,13 +167,13 @@ public class vrButtons : MonoBehaviour
         }
 
         // are we ready for another event?
-        if (!appEventReadyFlag && updateCounter >= appEventBeginCount + appRecoveryCount)
+        if (!appEventReadyFlag && Time.time >= appEventBeginSec + appEventDurationSecs + appRecoverySecs)
         {
             appEventReadyFlag = true;
         }
 
         // have we passed the event detection window?
-        if (appInWindowFlag && updateCounter >= appEventBeginCount + appEventDetectionWindow)
+        if (appInWindowFlag && Time.time >= appEventBeginSec + appEventDetectionWindowSecs)
         {
             appInWindowFlag = false;
         }
@@ -189,8 +184,8 @@ public class vrButtons : MonoBehaviour
         // CLICK EVENT LOGIC
         if (clickEventReadyFlag && UnityEngine.Random.Range(0.0f, 1.0f) < clickEventProb)
         {
-            clickEventReadyFlag = false; 
-            clickEventBeginCount = updateCounter;
+            clickEventReadyFlag = false;
+            clickEventBeginSec = Time.time;
             clickInEventFlag = true;
             clickInWindowFlag = true;
         }
@@ -200,12 +195,14 @@ public class vrButtons : MonoBehaviour
             doClickEvent();
         }
 
-        if (!clickEventReadyFlag && updateCounter >= clickEventBeginCount + clickEventDuration + clickRecoveryCount)
+        // are we ready for another event?
+        if (!clickEventReadyFlag && Time.time >= clickEventBeginSec + clickEventDurationSecs + clickRecoverySecs)
         {
             clickEventReadyFlag = true;
         }
 
-        if (clickInWindowFlag && updateCounter >= clickEventBeginCount + clickEventDetectionWindow)
+        // have we passed the event detection window?
+        if (clickInWindowFlag && Time.time >= clickEventBeginSec + clickEventDetectionWindowSecs)
         {
             clickInWindowFlag = false;
         }
