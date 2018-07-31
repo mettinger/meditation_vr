@@ -5,7 +5,7 @@ public class changeColor : MonoBehaviour
 {
 
     Renderer thisRend;
-    double i;
+    float i;
 
     // Use this for initialization
     void Start()
@@ -21,8 +21,9 @@ public class changeColor : MonoBehaviour
     {
 
         Vector4 oldColor = thisRend.material.color;
-        i = i + .1;
-        Color color = new Color((float)Math.Sin(i), oldColor.y, oldColor.z, oldColor.w);
+        i = i + .1f;
+        //Color color = new Color((float)Math.Sin(i), oldColor.y, oldColor.z, oldColor.w);
+        Color color = new Color((float)(oldColor.x + .001f) % 1.0f, oldColor.y, oldColor.z, oldColor.w);
         thisRend.material.SetColor("_Color", color);
 
     }
