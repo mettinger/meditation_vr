@@ -19,7 +19,6 @@ public class vrButtons : MonoBehaviour
     static private int cols = 20;
     private float zSphereArray = 100;
     private GameObject[,] arraySphere = new GameObject[rows,cols];
-    static private int numSphereArray = rows * cols;
 
     // peripheral circle
     static private int numSpherePeriph = 30;
@@ -27,24 +26,22 @@ public class vrButtons : MonoBehaviour
     private float zCircle = 15;
     private GameObject[] circleSphere = new GameObject[numSpherePeriph];
 
-    // button click counters
-    private int appClickCounter = 0;
-    private int clickClickCounter = 0;
-
     // button status flags
     private int clickButtonDownFlag = 0;
     private int appButtonDownFlag = 0;
 
     // event parameters - modify at will!
-    private float appRecoverySecs = 2.0f; // recovery time after end of event
-    private float appEventProb = .1f;
-    private float appEventDurationSecs = 1.0f;
-    private float appEventDetectionWindowSecs = 2.0f; // window for detection from beginning of event
+    // click button is for peripheral
+    // app button is for array (attention)
+    private float appRecoverySecs = 4.0f; // recovery time after end of event
+    private float appEventProb = .4f;
+    private float appEventDurationSecs = 0.1f;
+    private float appEventDetectionWindowSecs = 1.0f; // window for detection from beginning of event
 
-    private float clickRecoverySecs = 2.0f; // recovery time after end of event
-    private float clickEventProb = .1f;
-    private float clickEventDurationSecs = 1.0f;
-    private float clickEventDetectionWindowSecs = 2.0f; // window for detection from beginning of event
+    private float clickRecoverySecs = 4.0f; // recovery time after end of event
+    private float clickEventProb = .4f;
+    private float clickEventDurationSecs = 0.1f;
+    private float clickEventDetectionWindowSecs = 1.0f; // window for detection from beginning of event
 
     // event variables - do NOT modify
     private bool appEventReadyFlag = true;
@@ -62,6 +59,10 @@ public class vrButtons : MonoBehaviour
 
     private bool appInWindowFlag = false;
     private bool clickInWindowFlag = false;
+
+    private int randomPeripheralIndex;
+    private int randomAttentionRow;
+    private int randomAttentionColumn;
 
     // Use this for initialization
     void Start()
@@ -128,12 +129,14 @@ public class vrButtons : MonoBehaviour
     {
         if (Mathf.Approximately(appEventBeginSec, Time.time))
         {
-            arraySphere[10, 10].transform.localScale = new Vector3(0, 0, 0);
+            randomAttentionRow = UnityEngine.Random.Range(0, rows - 1);
+            randomAttentionColumn = UnityEngine.Random.Range(0, cols - 1);
+            arraySphere[randomAttentionRow, randomAttentionColumn].transform.localScale = new Vector3(0, 0, 0);
         }
         else if (Time.time >= appEventBeginSec + appEventDurationSecs)
         {
             appInEventFlag = false;
-            arraySphere[10, 10].transform.localScale = new Vector3(1, 1, 1);
+            arraySphere[randomAttentionRow, randomAttentionColumn].transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
@@ -141,12 +144,13 @@ public class vrButtons : MonoBehaviour
     {
         if (Mathf.Approximately(clickEventBeginSec, Time.time))
         {
-            circleSphere[0].transform.localScale = new Vector3(0, 0, 0);
+            randomPeripheralIndex = UnityEngine.Random.Range(0, numSpherePeriph - 1);
+            circleSphere[randomPeripheralIndex].transform.localScale = new Vector3(0, 0, 0);
         }
         else if (Time.time >= clickEventBeginSec + clickEventDurationSecs)
         {
             clickInEventFlag = false;
-            circleSphere[0].transform.localScale = new Vector3(1, 1, 1);
+            circleSphere[randomPeripheralIndex].transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
@@ -167,13 +171,13 @@ public class vrButtons : MonoBehaviour
         }
 
         // are we ready for another event?
-        if (!appEventReadyFlag && Time.time >= appEventBeginSec + appEventDurationSecs + appRecoverySecs)
+        if (Time.time >= appEventBeginSec + appEventDurationSecs + appRecoverySecs)
         {
             appEventReadyFlag = true;
         }
 
         // have we passed the event detection window?
-        if (appInWindowFlag && Time.time >= appEventBeginSec + appEventDetectionWindowSecs)
+        if (Time.time >= appEventBeginSec + appEventDetectionWindowSecs)
         {
             appInWindowFlag = false;
         }
@@ -196,13 +200,13 @@ public class vrButtons : MonoBehaviour
         }
 
         // are we ready for another event?
-        if (!clickEventReadyFlag && Time.time >= clickEventBeginSec + clickEventDurationSecs + clickRecoverySecs)
+        if (Time.time >= clickEventBeginSec + clickEventDurationSecs + clickRecoverySecs)
         {
             clickEventReadyFlag = true;
         }
 
         // have we passed the event detection window?
-        if (clickInWindowFlag && Time.time >= clickEventBeginSec + clickEventDetectionWindowSecs)
+        if (Time.time >= clickEventBeginSec + clickEventDetectionWindowSecs)
         {
             clickInWindowFlag = false;
         }
@@ -223,10 +227,13 @@ public class vrButtons : MonoBehaviour
                 if (appInWindowFlag)
                 {
                     appEventDetectCounter += 1;
+                    appInWindowFlag = false;
+                    print("app correct: " + appEventDetectCounter.ToString());
                 }
                 else
                 {
                     appFalsePositiveCounter += 1;
+                    print("app false positive: " + appFalsePositiveCounter.ToString());
                 }
             }
         }
@@ -249,14 +256,14 @@ public class vrButtons : MonoBehaviour
                 if (clickInWindowFlag)
                 {
                     clickEventDetectCounter += 1;
+                    clickInWindowFlag = false;
+                    print("click correct: " + clickEventDetectCounter.ToString());
                 }
                 else
                 {
                     clickFalsePositiveCounter += 1;
+                    print("click false positive: " + clickFalsePositiveCounter.ToString());
                 }
-
-                //clickClickCounter += 1;
-                //print("click button click counter: " + clickClickCounter.ToString());
             }
         }
     }

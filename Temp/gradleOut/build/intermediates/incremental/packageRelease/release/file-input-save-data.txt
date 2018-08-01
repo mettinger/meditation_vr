@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Jul 29 17:44:04 EDT 2018
+#Wed Aug 01 11:21:19 EDT 2018
 60.set=ASSET
 52.set=ASSET
 53.base=/Users/mettinger/github/meditation_vr/Temp/gradleOut/build/intermediates/assets/release
