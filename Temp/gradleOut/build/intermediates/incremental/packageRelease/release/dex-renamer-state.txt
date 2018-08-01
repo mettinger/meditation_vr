@@ -1,4 +1,0 @@
-#Wed Aug 01 11:21:19 EDT 2018
-base.0=/Users/mettinger/github/meditation_vr/Temp/gradleOut/build/intermediates/transforms/dex/release/0
-path.0=classes.dex
-renamed.0=classes.dex
