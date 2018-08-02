@@ -5,6 +5,7 @@
 
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 
 public class vrButtons : MonoBehaviour
@@ -30,19 +31,6 @@ public class vrButtons : MonoBehaviour
     private int clickButtonDownFlag = 0;
     private int appButtonDownFlag = 0;
 
-    // event parameters - modify at will!
-    // click button is for peripheral
-    // app button is for array (attention)
-    private float appRecoverySecs = 4.0f; // recovery time after end of event
-    private float appEventProb = .4f;
-    private float appEventDurationSecs = 0.1f;
-    private float appEventDetectionWindowSecs = 1.0f; // window for detection from beginning of event
-
-    private float clickRecoverySecs = 4.0f; // recovery time after end of event
-    private float clickEventProb = .4f;
-    private float clickEventDurationSecs = 0.1f;
-    private float clickEventDetectionWindowSecs = 1.0f; // window for detection from beginning of event
-
     // event variables - do NOT modify
     private bool appEventReadyFlag = true;
     private float appEventBeginSec;
@@ -57,6 +45,9 @@ public class vrButtons : MonoBehaviour
     private int appFalsePositiveCounter = 0;
     private int clickFalsePositiveCounter = 0;
 
+    private int appEventCounter = 0;
+    private int clickEventCounter = 0;
+
     private bool appInWindowFlag = false;
     private bool clickInWindowFlag = false;
 
@@ -64,9 +55,36 @@ public class vrButtons : MonoBehaviour
     private int randomAttentionRow;
     private int randomAttentionColumn;
 
+    public Text attentionEventCounterText;
+    public Text attentionEventDetectedText;
+    public Text attentionFalsePositiveText;
+
+    public Text awarenessEventCounterText;
+    public Text awarenessEventDetectedText;
+    public Text awarenessFalsePositiveText;
+
+    private int frameCounter = 0;
+
+    // event parameters - modify at will!
+    // click button is for peripheral
+    // app button is for array (attention)
+    private float appRecoverySecs = 4.0f; // recovery time after end of event
+    private float appEventProb = .01f;
+    private float appEventDurationSecs = 0.1f;
+    private float appEventDetectionWindowSecs = 1.0f; // window for detection from beginning of event
+
+    private float clickRecoverySecs = 4.0f; // recovery time after end of event
+    private float clickEventProb = .01f;
+    private float clickEventDurationSecs = 0.1f;
+    private float clickEventDetectionWindowSecs = 1.0f; // window for detection from beginning of event
+
+
     // Use this for initialization
     void Start()
     {
+
+        updateDashboard();
+
         // MAKE CENTER ATTENTION ARRAY
         for (int i = 0; i < rows; i++)
         {
@@ -106,11 +124,16 @@ public class vrButtons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        updateDashboard();
+
         appEventLogic();
         clickEventLogic();
 
         appButtonLogic();
         clickButtonLogic();
+
+        frameCounter += 1;
 
         /*
         if (Input.GetMouseButtonDown(0))
@@ -122,6 +145,20 @@ public class vrButtons : MonoBehaviour
         if (Input.GetMouseButtonDown(2))
             Debug.Log("Pressed middle click.");
             */
+    }
+
+
+    void updateDashboard()
+    {
+        //attentionEventCounterText.text = "frame count: " + frameCounter.ToString();
+
+        attentionEventCounterText.text = "attention events total: " + appEventCounter.ToString();
+        attentionEventDetectedText.text = "attention events detected: " + appEventDetectCounter.ToString();
+        attentionFalsePositiveText.text = "attention false positives: " + appFalsePositiveCounter.ToString();
+
+        awarenessEventCounterText.text = "awareness events total: " + clickEventCounter.ToString();
+        awarenessEventDetectedText.text = "awareness events detected: " + clickEventDetectCounter.ToString();
+        awarenessFalsePositiveText.text = "awareness false positives: " + clickFalsePositiveCounter.ToString();
     }
 
 
@@ -139,6 +176,7 @@ public class vrButtons : MonoBehaviour
             arraySphere[randomAttentionRow, randomAttentionColumn].transform.localScale = new Vector3(1, 1, 1);
         }
     }
+
 
     void doClickEvent()
     {
@@ -163,6 +201,7 @@ public class vrButtons : MonoBehaviour
             appEventBeginSec = Time.time;
             appInEventFlag = true;
             appInWindowFlag = true;
+            appEventCounter += 1;
         }
 
         if (appInEventFlag)
@@ -192,6 +231,7 @@ public class vrButtons : MonoBehaviour
             clickEventBeginSec = Time.time;
             clickInEventFlag = true;
             clickInWindowFlag = true;
+            clickEventCounter += 1;
         }
 
         if (clickInEventFlag)
